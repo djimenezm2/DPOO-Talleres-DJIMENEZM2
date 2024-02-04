@@ -108,7 +108,8 @@ public class Surtidor
 
         // Actualizar la cantidad de gasolina vendida en el surtidor
         double cantidadAnterior = galonesVendidos.get( nombreTipoGasolina );
-        galonesVendidos.put( nombreTipoGasolina, cantidadAnterior - cantidadEntregada );
+        System.out.println( "Cantidad anterior: " + cantidadAnterior);
+        galonesVendidos.put( nombreTipoGasolina, cantidadAnterior + cantidadEntregada );
 
         return precio;
     }
