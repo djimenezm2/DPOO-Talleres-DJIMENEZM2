@@ -284,7 +284,7 @@ public class SandboxArreglos
         int contador = 0;
         for (int i = 0; i < arregloEnteros.length; i++) {
             if (arregloEnteros[i] == valor) {
-                contador ++;
+                contador++;
             }
         }
         return contador;
@@ -302,7 +302,7 @@ public class SandboxArreglos
         int contador = 0;
         for (int i = 0; i < arregloCadenas.length; i++) {
             if (arregloCadenas[i].equalsIgnoreCase(cadena)) {
-                contador ++;
+                contador++;
             }
         }
         return contador;
@@ -319,7 +319,7 @@ public class SandboxArreglos
         int contador = 0;
         for (int i = 0; i < arregloEnteros.length; i++) {
             if (arregloEnteros[i] == valor) {
-                contador ++;
+                contador++;
             }
         }
         int[] posiciones = new int[contador];
@@ -327,7 +327,7 @@ public class SandboxArreglos
         for (int i = 0; i < arregloEnteros.length; i++) {
             if (arregloEnteros[i] == valor) {
                 posiciones[contador] = i;
-                contador ++;
+                contador++;
             }
         }
         return posiciones;
@@ -384,7 +384,7 @@ public class SandboxArreglos
         HashMap<Integer, Integer> histograma = calcularHistograma();
         for (int i : histograma.values()) {
             if (i > 1) {
-                contador ++;
+                contador++;
             }
         }
         return contador;
