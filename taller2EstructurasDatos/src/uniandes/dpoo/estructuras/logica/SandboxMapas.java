@@ -1,6 +1,8 @@
 package uniandes.dpoo.estructuras.logica;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -41,7 +43,11 @@ public class SandboxMapas
      */
     public List<String> getValoresComoLista( )
     {
-        return null;
+        List<String> lista = new ArrayList<>(mapaCadenas.values());
+
+        Collections.sort(lista);
+
+        return lista;
     }
 
     /**
@@ -50,7 +56,11 @@ public class SandboxMapas
      */
     public List<String> getLlavesComoListaInvertida( )
     {
-        return null;
+        List<String> lista = new ArrayList<>(mapaCadenas.keySet());
+
+        Collections.sort(lista, Collections.reverseOrder());
+
+        return lista;
     }
 
     /**
@@ -61,7 +71,13 @@ public class SandboxMapas
      */
     public String getPrimera( )
     {
-        return null;
+        if (mapaCadenas.isEmpty()) {
+            return null;
+        } else {
+            List<String> lista = new ArrayList<>(mapaCadenas.keySet());
+            Collections.sort(lista);
+            return lista.get(0);
+        }
     }
 
     /**
@@ -72,7 +88,13 @@ public class SandboxMapas
      */
     public String getUltima( )
     {
-        return null;
+        if (mapaCadenas.isEmpty()) {
+            return null;
+        } else {
+            List<String> lista = new ArrayList<>(mapaCadenas.values());
+            Collections.sort(lista);
+            return lista.get(lista.size() - 1);
+        }
     }
 
     /**
@@ -83,7 +105,14 @@ public class SandboxMapas
      */
     public Collection<String> getLlaves( )
     {
-        return null;
+        Collection<String> lista = mapaCadenas.keySet();
+        List<String> listaMayusculas = new ArrayList<>();
+
+        for (String llave : lista) {
+            listaMayusculas.add(llave.toUpperCase());
+        }
+
+        return listaMayusculas;
     }
 
     /**
@@ -92,7 +121,15 @@ public class SandboxMapas
      */
     public int getCantidadCadenasDiferentes( )
     {
-        return -1;
+        List<String> existentes = new ArrayList<>();
+
+        for (String valor : mapaCadenas.values()) {
+            if (!existentes.contains(valor)) {
+                existentes.add(valor);
+            }
+        }
+
+        return existentes.size();
     }
 
     /**
@@ -104,7 +141,8 @@ public class SandboxMapas
      */
     public void agregarCadena( String cadena )
     {
-
+        String llave = new StringBuilder(cadena).reverse().toString();
+        mapaCadenas.put(llave, cadena);
     }
 
     /**
@@ -113,7 +151,7 @@ public class SandboxMapas
      */
     public void eliminarCadenaConLLave( String llave )
     {
-
+        mapaCadenas.remove(llave);
     }
 
     /**
@@ -122,7 +160,12 @@ public class SandboxMapas
      */
     public void eliminarCadenaConValor( String valor )
     {
-
+        for (String llave : mapaCadenas.keySet()) {
+            if (mapaCadenas.get(llave).equals(valor)) {
+                mapaCadenas.remove(llave);
+                break;
+            }
+        }
     }
 
     /**
@@ -133,7 +176,11 @@ public class SandboxMapas
      */
     public void reiniciarMapaCadenas( List<Object> objetos )
     {
+        mapaCadenas.clear();
 
+        for (Object objeto : objetos) {
+            agregarCadena(objeto.toString());
+        }
     }
 
     /**
@@ -141,7 +188,13 @@ public class SandboxMapas
      */
     public void volverMayusculas( )
     {
+        Map<String, String> nuevoMapa = new HashMap<>();
 
+        for (String llave : mapaCadenas.keySet()) {
+            nuevoMapa.put(llave.toUpperCase(), mapaCadenas.get(llave));
+        }
+
+        mapaCadenas = nuevoMapa;
     }
 
     /**
@@ -151,7 +204,12 @@ public class SandboxMapas
      */
     public boolean compararValores( String[] otroArreglo )
     {
-        return false;
-    }
+        for (String valor : otroArreglo) {
+            if (!mapaCadenas.containsValue(valor)) {
+                return false;
+            }
+        }
 
+        return true;
+    }
 }
