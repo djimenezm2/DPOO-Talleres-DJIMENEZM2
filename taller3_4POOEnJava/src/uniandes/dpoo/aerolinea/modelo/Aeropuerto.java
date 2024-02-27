@@ -3,17 +3,81 @@ package uniandes.dpoo.aerolinea.modelo;
 import java.util.HashSet;
 import java.util.Set;
 
-import uniandes.dpoo.aerolinea.exceptions.AeropuertoDuplicadoException;
-
 /**
  * Esta clase encapsula la información sobre los aeropuertos e implementa algunas operaciones relacionadas con la ubicación geográfica de los aeropuertos.
- * 
+ *
  * No puede haber dos aeropuertos con el mismo código.
  */
-public class Aeropuerto
-{
-    // TODO completar
-    
+public class Aeropuerto {
+    // Class Attributes
+    private String nombre;
+    private String codigo;
+    private String nombreCiudad;
+    private double latitud;
+    private double longitud;
+    private Set<String> codigosUtilizados = new HashSet<String>();
+    private static int RADIO_TERRESTRE = 6371;
+
+    // Class Constructor
+    /**
+     * Construye un nuevo aeropuerto e inicializa sus atributos con los valores dados
+     * El código del nuevo aeropuerto debe quedar almacenado en el conjunto codigosUtilizados
+     * para mostrar que ya existe un aeropuerto con ese código
+     * @param nombre El nombre del aeropuerto
+     * @param codigo El código del aeropuerto
+     * @param nombreCiudad El nombre de la ciudad
+     * @param latitud La latitud del aeropuerto
+     * @param longitud La longitud del aeropuerto
+     */
+    public Aeropuerto(String nombre, String codigo, String nombreCiudad, double latitud, double longitud) {
+        this.nombre = nombre;
+        this.codigo = codigo;
+        this.nombreCiudad = nombreCiudad;
+        this.latitud = latitud;
+        this.longitud = longitud;
+        this.codigosUtilizados.add(codigo);
+    }
+
+    // Class Methods
+    /**
+     * Retorna el nombre del aeropuerto
+     * @return El nombre del aeropuerto
+     */
+    public String getNombre() {
+        return this.nombre;
+    }
+
+    /**
+     * Retorna el código del aeropuerto
+     * @return El código del aeropuerto
+     */
+    public String getCodigo() {
+        return this.codigo;
+    }
+
+    /**
+     * Retorna el nombre de la ciudad
+     * @return El nombre de la ciudad
+     */
+    public String getNombreCiudad() {
+        return this.nombreCiudad;
+    }
+
+    /**
+     * Retorna la latitud del aeropuerto
+     * @return La latitud del aeropuerto
+     */
+    public double getLatitud() {
+        return this.latitud;
+    }
+
+    /**
+     * Retorna la longitud del aeropuerto
+     * @return La longitud del aeropuerto
+     */
+    public double getLongitud() {
+        return this.longitud;
+    }
 
     /**
      * Este método calcula la distancia *aproximada* entre dos aeropuertos. Hay fórmulas más precisas pero esta es suficientemente buena para el caso de la aerolínea.
