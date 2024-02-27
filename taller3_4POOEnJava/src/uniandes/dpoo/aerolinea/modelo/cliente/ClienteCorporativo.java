@@ -23,7 +23,7 @@ public class ClienteCorporativo extends Cliente {
      * @param tamanoEmpresa El tamaño de la empresa
      */
     public ClienteCorporativo( String nombreEmpresa, int tamanoEmpresa ) {
-        super( );
+        super();
         this.nombreEmpresa = nombreEmpresa;
 
         if ( tamanoEmpresa == GRANDE) {
