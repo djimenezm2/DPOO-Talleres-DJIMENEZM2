@@ -9,6 +9,9 @@ import java.util.Set;
  * No puede haber dos aeropuertos con el mismo código.
  */
 public class Aeropuerto {
+    // Class Constants
+    private static final int RADIO_TERRESTRE = 6371;
+
     // Class Attributes
     private String nombre;
     private String codigo;
@@ -16,7 +19,6 @@ public class Aeropuerto {
     private double latitud;
     private double longitud;
     private Set<String> codigosUtilizados = new HashSet<String>();
-    private static int RADIO_TERRESTRE = 6371;
 
     // Class Constructor
     /**
