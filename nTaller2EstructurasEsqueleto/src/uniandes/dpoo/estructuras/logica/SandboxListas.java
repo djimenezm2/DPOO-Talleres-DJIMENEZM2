@@ -42,7 +42,9 @@ public class SandboxListas
      */
     public List<Integer> getCopiaEnteros( )
     {
-        return null;
+        List<Integer> copia = new ArrayList<Integer>( listaEnteros ); // Crea una lista con los enteros de la lista
+
+        return copia;
     }
 
     /**
@@ -51,7 +53,9 @@ public class SandboxListas
      */
     public List<String> getCopiaCadenas( )
     {
-        return null;
+        List<String> copia = new LinkedList<String>( listaCadenas ); // Crea una lista con las cadenas de la lista
+
+        return copia;
     }
 
     /**
@@ -60,7 +64,14 @@ public class SandboxListas
      */
     public int[] getEnterosComoArreglo( )
     {
-        return null;
+        int[] arreglo = new int[ this.listaEnteros.size( ) ]; // Crea un arreglo con los enteros de la lista
+
+        for( int i = 0; i < this.listaEnteros.size( ); i++ ) // Recorre la lista de enteros
+        {
+            arreglo[ i ] = this.listaEnteros.get( i ); // Copia el valor de la lista al arreglo
+        }
+
+        return arreglo;
     }
 
     /**
@@ -69,7 +80,7 @@ public class SandboxListas
      */
     public int getCantidadEnteros( )
     {
-        return -1;
+        return this.listaEnteros.size( ); // Retorna la cantidad de enteros en la lista
     }
 
     /**
@@ -78,7 +89,7 @@ public class SandboxListas
      */
     public int getCantidadCadenas( )
     {
-        return -1;
+        return listaCadenas.size( ); // Retorna la cantidad de cadenas en la lista
     }
 
     /**
@@ -88,7 +99,7 @@ public class SandboxListas
      */
     public void agregarEntero( int entero )
     {
-
+        this.listaEnteros.add( entero ); // Agrega el entero a la lista
     }
 
     /**
@@ -98,7 +109,7 @@ public class SandboxListas
      */
     public void agregarCadena( String cadena )
     {
-
+        listaCadenas.add( cadena ); // Agrega la cadena a la lista
     }
 
     /**
@@ -107,6 +118,7 @@ public class SandboxListas
      */
     public void eliminarEntero( int valor )
     {
+        this.listaEnteros.removeIf( v -> v == valor ); // Elimina el valor de la lista
     }
 
     /**
@@ -115,7 +127,7 @@ public class SandboxListas
      */
     public void eliminarCadena( String cadena )
     {
-
+        listaCadenas.removeIf( c -> c.equals( cadena ) ); // Elimina la cadena de la lista
     }
 
     /**
@@ -127,7 +139,16 @@ public class SandboxListas
      */
     public void insertarEntero( int entero, int posicion )
     {
-
+        if( posicion < 0 ) // Si la posición es menor a 0
+        {
+            this.listaEnteros.add( 0, entero ); // Agrega el entero al inicio de la lista
+        } else if( posicion >= this.listaEnteros.size( ) ) // Si la posición es mayor o igual al tamaño de la lista
+        {
+            this.listaEnteros.add( entero ); // Agrega el entero al final de la lista
+        } else // Si la posición está en el rango de la lista
+        {
+            this.listaEnteros.add( posicion, entero ); // Agrega el entero en la posición dada
+        }
     }
 
     /**
@@ -137,7 +158,10 @@ public class SandboxListas
      */
     public void eliminarEnteroPorPosicion( int posicion )
     {
-
+        if( posicion >= 0 && posicion < this.listaEnteros.size( ) ) // Si la posición está en el rango de la lista
+        {
+            this.listaEnteros.remove( posicion ); // Elimina el entero de la lista
+        }
     }
 
     /**
@@ -148,6 +172,12 @@ public class SandboxListas
      */
     public void reiniciarArregloEnteros( double[] valores )
     {
+        this.listaEnteros.clear( ); // Limpia la lista de enteros
+
+        for( double valor : valores ) // Recorre los valores del arreglo
+        {
+            this.listaEnteros.add( ( int ) valor ); // Agrega el valor entero a la lista
+        }
     }
 
     /**
@@ -158,7 +188,12 @@ public class SandboxListas
      */
     public void reiniciarArregloCadenas( List<Object> objetos )
     {
+        listaCadenas.clear( ); // Limpia la lista de cadenas
 
+        for( Object objeto : objetos ) // Recorre la lista de objetos
+        {
+            listaCadenas.add( objeto.toString( ) ); // Agrega la representación en cadena del objeto a la lista
+        }
     }
 
     /**
@@ -168,6 +203,11 @@ public class SandboxListas
      */
     public void volverPositivos( )
     {
+        for (int i = 0; i < this.listaEnteros.size(); i++) { // Recorre la lista de enteros
+            if (this.listaEnteros.get(i) < 0) {
+                this.listaEnteros.set(i, this.listaEnteros.get(i) * -1); // Convierte el valor a positivo
+            }
+        }
     }
 
     /**
@@ -175,7 +215,15 @@ public class SandboxListas
      */
     public void organizarEnteros( )
     {
-
+        for (int i = 0; i < this.listaEnteros.size(); i++) { // Recorre la lista de enteros
+            for (int j = 0; j < this.listaEnteros.size() - 1; j++) { // Recorre la lista de enteros
+                if (this.listaEnteros.get(j) < this.listaEnteros.get(j + 1)) { // Si el valor actual es menor al siguiente
+                    int temp = this.listaEnteros.get(j); // Intercambia los valores
+                    this.listaEnteros.set(j, this.listaEnteros.get(j + 1)); // Intercambia los valores
+                    this.listaEnteros.set(j + 1, temp); // Intercambia los valores
+                }
+            }
+        }
     }
 
     /**
@@ -183,7 +231,15 @@ public class SandboxListas
      */
     public void organizarCadenas( )
     {
-
+        for (int i = 0; i < listaCadenas.size(); i++) { // Recorre la lista de cadenas
+            for (int j = 0; j < listaCadenas.size() - 1; j++) { // Recorre la lista de cadenas
+                if (listaCadenas.get(j).compareTo(listaCadenas.get(j + 1)) > 0) { // Si la cadena actual es mayor a la siguiente
+                    String temp = listaCadenas.get(j); // Intercambia las cadenas
+                    listaCadenas.set(j, listaCadenas.get(j + 1)); // Intercambia las cadenas
+                    listaCadenas.set(j + 1, temp); // Intercambia las cadenas
+                }
+            }
+        }
     }
 
     /**
@@ -193,7 +249,13 @@ public class SandboxListas
      */
     public int contarApariciones( int valor )
     {
-        return -1;
+        int count = 0; // Inicializa el contador
+        for (int i = 0; i < this.listaEnteros.size(); i++) { // Recorre la lista de enteros
+            if (this.listaEnteros.get(i) == valor) { // Si el valor actual es igual al valor buscado
+                count++;
+            }
+        }
+        return count;
     }
 
     /**
@@ -205,7 +267,13 @@ public class SandboxListas
      */
     public int contarApariciones( String cadena )
     {
-        return -1;
+        int count = 0; // Inicializa el contador
+        for (int i = 0; i < listaCadenas.size(); i++) { // Recorre la lista de cadenas
+            if (listaCadenas.get(i).equalsIgnoreCase(cadena)) { // Si la cadena actual es igual a la cadena buscada
+                count++;
+            }
+        }
+        return count;
     }
 
     /**
@@ -214,7 +282,22 @@ public class SandboxListas
      */
     public int contarEnterosRepetidos( )
     {
-        return -1;
+        List<Integer> analizados = new ArrayList<Integer>(); // Lista de enteros analizados
+        int count = 0; // Inicializa el contador
+
+        for (int i = 0; i < this.listaEnteros.size(); i++) { // Recorre la lista de enteros
+            int numero = this.listaEnteros.get(i); // Obtiene el valor actual
+            if (analizados.contains(numero)) { // Si el valor ya fue analizado
+                continue;
+            } else {
+                int apariciones = contarApariciones(numero); // Cuenta las apariciones del valor
+                if (apariciones > 1) { // Si el valor aparece más de una vez
+                    count++;
+                }
+                analizados.add(numero); // Agrega el valor a la lista de analizados
+            }
+        }
+        return count;
     }
 
     /**
@@ -224,7 +307,15 @@ public class SandboxListas
      */
     public boolean compararArregloEnteros( int[] otroArreglo )
     {
-        return false;
+        if (this.listaEnteros.size() != otroArreglo.length) { // Si los tamaños de las listas son diferentes
+            return false;
+        }
+        for (int i = 0; i < this.listaEnteros.size(); i++) { // Recorre la lista de enteros
+            if (this.listaEnteros.get(i) != otroArreglo[i]) { // Si los valores son diferentes
+                return false;
+            }
+        }
+        return true;
     }
 
     /**
@@ -239,7 +330,11 @@ public class SandboxListas
      */
     public void generarEnteros( int cantidad, int minimo, int maximo )
     {
-
+        this.listaEnteros.clear(); // Limpia la lista de enteros
+        for (int i = 0; i < cantidad; i++) { // Recorre la cantidad de elementos
+            int numero = (int) ((Math.random() * (maximo - minimo + 1)) + minimo); // Genera un número aleatorio
+            this.listaEnteros.add(numero); // Agrega el número a la lista
+        }
     }
 
 }
