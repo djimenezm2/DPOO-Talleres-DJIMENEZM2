@@ -39,7 +39,10 @@ public class SandboxConjuntos
      */
     public List<String> getCadenasComoLista( )
     {
-        return null;
+        // Cannot be unmodifiable because the list is going to be modified
+        List<String> cadenas = new java.util.ArrayList<String>( arbolCadenas ); // Crea una lista con las cadenas del conjunto
+
+        return cadenas; // Retorna la lista con las cadenas
     }
 
     /**
@@ -48,7 +51,9 @@ public class SandboxConjuntos
      */
     public List<String> getCadenasComoListaInvertida( )
     {
-        return null;
+        List<String> cadenas = new java.util.ArrayList<String>( arbolCadenas.descendingSet( ) ); // Crea una lista con las cadenas del conjunto invertidas
+
+        return cadenas; // Retorna la lista con las cadenas invertidas
     }
 
     /**
@@ -59,7 +64,12 @@ public class SandboxConjuntos
      */
     public String getPrimera( )
     {
-        return null;
+        if ( arbolCadenas.isEmpty( ) ) // Verifica si el conjunto está vacío
+        {
+            return null; // Retorna null si está vacío
+        } else { // Si no está vacío
+            return arbolCadenas.first( ); // Retorna la primera cadena del conjunto
+        }
     }
 
     /**
@@ -70,7 +80,12 @@ public class SandboxConjuntos
      */
     public String getUltima( )
     {
-        return null;
+        if ( arbolCadenas.isEmpty( ) ) // Verifica si el conjunto está vacío
+        {
+            return null; // Retorna null si está vacío
+        } else { // Si no está vacío
+            return arbolCadenas.last( ); // Retorna la última cadena del conjunto
+        }
     }
 
     /**
@@ -80,7 +95,7 @@ public class SandboxConjuntos
      */
     public Collection<String> getSiguientes( String cadena )
     {
-        return null;
+        return arbolCadenas.tailSet( cadena, true ); // Retorna una colección con las cadenas mayores o iguales a la cadena dada
     }
 
     /**
@@ -89,7 +104,7 @@ public class SandboxConjuntos
      */
     public int getCantidadCadenas( )
     {
-        return -1;
+        return arbolCadenas.size( ); // Retorna la cantidad de cadenas en el conjunto
     }
 
     /**
@@ -101,7 +116,7 @@ public class SandboxConjuntos
      */
     public void agregarCadena( String cadena )
     {
-
+        arbolCadenas.add( cadena ); // Agrega la cadena al conjunto
     }
 
     /**
@@ -110,7 +125,7 @@ public class SandboxConjuntos
      */
     public void eliminarCadena( String cadena )
     {
-
+        arbolCadenas.remove( cadena ); // Elimina la cadena del conjunto
     }
 
     /**
@@ -119,7 +134,7 @@ public class SandboxConjuntos
      */
     public void eliminarCadenaSinMayusculasOMinusculas( String cadena )
     {
-
+        arbolCadenas.removeIf( c -> c.equalsIgnoreCase( cadena ) ); // Elimina la cadena del conjunto sin importar las mayúsculas o minúsculas
     }
 
     /**
@@ -127,7 +142,7 @@ public class SandboxConjuntos
      */
     public void eliminarPrimera( )
     {
-
+        arbolCadenas.pollFirst( ); // Elimina la primera cadena del conjunto
     }
 
     /**
@@ -138,7 +153,12 @@ public class SandboxConjuntos
      */
     public void reiniciarConjuntoCadenas( List<Object> objetos )
     {
+        arbolCadenas.clear( ); // Limpia el conjunto
 
+        for ( Object objeto : objetos ) // Recorre la lista de objetos
+        {
+            arbolCadenas.add( objeto.toString( ) ); // Agrega la representación en cadena del objeto al conjunto
+        }
     }
 
     /**
@@ -148,6 +168,14 @@ public class SandboxConjuntos
      */
     public void volverMayusculas( )
     {
+        TreeSet<String> nuevoArbol = new TreeSet<String>( ); // Crea un nuevo conjunto
+
+        for ( String cadena : arbolCadenas ) // Recorre el conjunto
+        {
+            nuevoArbol.add( cadena.toUpperCase( ) ); // Agrega la cadena en mayúsculas al nuevo conjunto
+        }
+
+        arbolCadenas = nuevoArbol; // Asigna el nuevo conjunto al conjunto original
     }
 
     /**
@@ -155,7 +183,9 @@ public class SandboxConjuntos
      */
     public TreeSet<String> invertirCadenas( )
     {
-        return null;
+        TreeSet<String> nuevoArbol = new TreeSet<String>( arbolCadenas.descendingSet( ) ); // Crea un nuevo conjunto con las cadenas invertidas
+
+        return nuevoArbol; // Retorna el nuevo conjunto
     }
 
     /**
@@ -165,7 +195,14 @@ public class SandboxConjuntos
      */
     public boolean compararElementos( String[] otroArreglo )
     {
-        return false;
-    }
+        for ( String cadena : otroArreglo ) // Recorre el arreglo
+        {
+            if ( !arbolCadenas.contains( cadena ) ) // Verifica si la cadena no está en el conjunto
+            {
+                return false; // Retorna false si la cadena no está en el conjunto
+            }
+        }
 
+        return true; // Retorna true si todas las cadenas están en el conjunto
+    }
 }
