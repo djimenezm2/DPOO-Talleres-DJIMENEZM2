@@ -1,9 +1,11 @@
 package uniandes.dpoo.estructuras.logica;
-
+import java.util.*;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import org.junit.platform.commons.util.CollectionUtils;
 
 /**
  * Esta clase tiene un conjunto de métodos para practicar operaciones sobre mapas.
@@ -41,7 +43,11 @@ public class SandboxMapas
      */
     public List<String> getValoresComoLista( )
     {
-        return null;
+        List<String> valores = new ArrayList<String>( mapaCadenas.values( ) ); // Se crea una lista con los valores del mapa
+
+        Collections.sort( valores ); // Se ordena la lista
+
+        return valores;
     }
 
     /**
@@ -50,7 +56,11 @@ public class SandboxMapas
      */
     public List<String> getLlavesComoListaInvertida( )
     {
-        return null;
+        List<String> llaves = new ArrayList<String>( mapaCadenas.keySet( ) ); // Se crea una lista con las llaves del mapa
+
+        Collections.sort( llaves, Collections.reverseOrder( ) ); // Se ordena la lista de mayor a menor
+
+        return llaves;
     }
 
     /**
@@ -61,7 +71,13 @@ public class SandboxMapas
      */
     public String getPrimera( )
     {
-        return null;
+        if (mapaCadenas.isEmpty()) {
+            return null;
+        } else {
+            List<String> llaves = new ArrayList<String>( mapaCadenas.keySet( ) ); // Se crea una lista con las llaves del mapa
+            Collections.sort( llaves ); // Se ordena la lista
+            return llaves.get(0);
+        }
     }
 
     /**
@@ -72,7 +88,13 @@ public class SandboxMapas
      */
     public String getUltima( )
     {
-        return null;
+        if (mapaCadenas.isEmpty()) {
+            return null;
+        } else {
+            List<String> valores = new ArrayList<String>( mapaCadenas.values( ) ); // Se crea una lista con los valores del mapa
+            Collections.sort( valores ); // Se ordena la lista
+            return valores.get(valores.size()-1);
+        }
     }
 
     /**
@@ -83,7 +105,14 @@ public class SandboxMapas
      */
     public Collection<String> getLlaves( )
     {
-        return null;
+        List<String> llaves = new ArrayList<String>( mapaCadenas.keySet( ) ); // Se crea una lista con las llaves del mapa
+        List<String> llavesMayusculas = new ArrayList<String>( ); // Se crea una lista vacía para guardar las llaves en mayúsculas
+
+        for (String llave : llaves) { // Se recorre la lista de llaves
+            llavesMayusculas.add(llave.toUpperCase()); // Se agrega la llave en mayúsculas a la lista
+        }
+
+        return llavesMayusculas;
     }
 
     /**
@@ -92,7 +121,15 @@ public class SandboxMapas
      */
     public int getCantidadCadenasDiferentes( )
     {
-        return -1;
+        List<String> valoresDiferentes = new ArrayList<String>( ); // Se crea una lista vacía para guardar los valores diferentes
+
+        for (String valor : mapaCadenas.values()) { // Se recorre la lista de valores
+            if (!valoresDiferentes.contains(valor)) {
+                valoresDiferentes.add(valor); // Se agrega el valor a la lista si no está
+            }
+        }
+
+        return valoresDiferentes.size();
     }
 
     /**
@@ -104,7 +141,7 @@ public class SandboxMapas
      */
     public void agregarCadena( String cadena )
     {
-
+        mapaCadenas.put(new StringBuilder(cadena).reverse().toString(), cadena); // Se agrega la cadena al mapa
     }
 
     /**
@@ -113,7 +150,7 @@ public class SandboxMapas
      */
     public void eliminarCadenaConLLave( String llave )
     {
-
+        mapaCadenas.remove(llave); // Se elimina la cadena del mapa
     }
 
     /**
@@ -122,7 +159,7 @@ public class SandboxMapas
      */
     public void eliminarCadenaConValor( String valor )
     {
-
+        mapaCadenas.remove(new StringBuilder(valor).reverse().toString()); // Se elimina la cadena del mapa
     }
 
     /**
@@ -133,7 +170,11 @@ public class SandboxMapas
      */
     public void reiniciarMapaCadenas( List<Object> objetos )
     {
+        mapaCadenas.clear(); // Se limpia el mapa
 
+        for (Object objeto : objetos) { // Se recorre la lista de objetos
+            agregarCadena(objeto.toString()); // Se agrega la cadena al mapa
+        }
     }
 
     /**
@@ -141,7 +182,13 @@ public class SandboxMapas
      */
     public void volverMayusculas( )
     {
+        Map<String, String> nuevoMapa = new HashMap<String, String>( ); // Se crea un nuevo mapa vacío
 
+        for (String llave : mapaCadenas.keySet()) { // Se recorre la lista de llaves
+            nuevoMapa.put(llave.toUpperCase(), mapaCadenas.get(llave)); // Se agrega la llave en mayúsculas al nuevo mapa
+        }
+
+        mapaCadenas = nuevoMapa; // Se actualiza el mapa
     }
 
     /**
@@ -151,7 +198,15 @@ public class SandboxMapas
      */
     public boolean compararValores( String[] otroArreglo )
     {
-        return false;
+        List<String> valores = new ArrayList<String>( mapaCadenas.values( ) ); // Se crea una lista con los valores del mapa
+
+        for (String valor : otroArreglo) { // Se recorre la lista de valores
+            if (!valores.contains(valor)) {
+                return false; // Si no se encuentra el valor, se retorna false
+            }
+        }
+
+        return true; // Si se encuentran todos los valores, se retorna true
     }
 
 }
