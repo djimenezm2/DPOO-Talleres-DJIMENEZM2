@@ -330,9 +330,10 @@ public class SandboxListas
      */
     public void generarEnteros( int cantidad, int minimo, int maximo )
     {
+        java.util.Random random = new java.util.Random();
         this.listaEnteros.clear(); // Limpia la lista de enteros
         for (int i = 0; i < cantidad; i++) { // Recorre la cantidad de elementos
-            int numero = (int) ((Math.random() * (maximo - minimo + 1)) + minimo); // Genera un número aleatorio
+            int numero = random.nextInt((maximo - minimo) + 1) + minimo; // Genera un número aleatorio
             this.listaEnteros.add(numero); // Agrega el número a la lista
         }
     }
